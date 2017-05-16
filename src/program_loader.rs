@@ -1,4 +1,3 @@
-use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -13,10 +12,9 @@ pub type LoadResult = Result<String,LoadError>;
 
 pub fn load_program_from_path(path: &'static str) -> LoadResult {
     let path = Path::new(path);
-    let display = path.display();
 
     let mut file = match File::open(&path) {
-        Err(why) => return Err(LoadError::FailedToOpen),
+        Err(_) => return Err(LoadError::FailedToOpen),
         Ok(file) => file,
     };
 
