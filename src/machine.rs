@@ -70,14 +70,14 @@ impl Machine {
     pub fn run(&mut self) {
         let mut operation = self.memory.get_value(self.program_counter);
         while operation != u8::max_value() {
-            match operation {
-                43 => self.memory.increment_at(self.data_pointer),
-                45 => self.memory.decrement_at(self.data_pointer),
-                46 => println!("{}", self.memory.get_value(self.data_pointer)),
-                60 => self.move_left(),
-                62 => self.move_right(),
-                91 => self.jump_forward_if_zero(),
-                93 => self.jump_backwards_unless_zero(),
+            match operation as char {
+                '+' => self.memory.increment_at(self.data_pointer),
+                '-' => self.memory.decrement_at(self.data_pointer),
+                '.' => println!("{}", self.memory.get_value(self.data_pointer)),
+                '<' => self.move_left(),
+                '>' => self.move_right(),
+                '[' => self.jump_forward_if_zero(),
+                ']' => self.jump_backwards_unless_zero(),
                 _ => panic!("failed!"),
             };
             self.program_counter += 1;
